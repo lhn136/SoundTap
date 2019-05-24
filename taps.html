@@ -5,19 +5,40 @@
 	<script type="text/javascript" src="paper-full.js"></script>
 	<link rel="stylesheet" href="taps.css">
     <script type="text/paperscript" canvas="myCanvas">
-    	// Create a Paper.js Path to draw a line into it:
-    	var path = new Path();
-    	// Give the stroke a color
-    	path.strokeColor = 'red';
-    	var start = new Point(250, 100);
-    	// Move to start and draw a line from there
-    	path.moveTo(start);
-    	// Note the plus operator on Point objects.
-    	// PaperScript does that for us, and much more!
-    	path.lineTo(start + [ 100, -150 ]);
+		// for(i=1; i <=10; i++){
+		// 	for(j=1; j <=10; j++){
+		// 		console.log(i,j)
+		// 		var myCircle = new Path.RegularPolygon(new Point(100*i, 100*j),6, 15);
+		// 		myCircle.fillColor = "rgb(255, 163, 236)";
+		// 		// myCircle.selected = true;
+		// 	}
+		// }
+		var circles = []
+		function onKeyDown(event) {
+			// When a key is pressed, set the content of the text item:
+			// var myShape = new Path.RegularPolygon(new Point(100, 100),3, 15);
+			var maxPoint = new Point(view.size.width - 20,view.size.height-20)
+			var randomizePoint = Point.random();
+			var point = maxPoint * randomizePoint;
+			var sides = Math.round(6 * Math.random())
+			var myShape = new Path.RegularPolygon(point, sides, 100 * Math.random() + 100)
+			myShape.fillColor = "#6E8C73"
+			circles.push(myShape)
 
-		var myCircle = new Path.Circle(new Point(100, 70), 50);
-		myCircle.fillColor = 'black';
+		}
+		// var animatedShape = new Path.RegularPolygon( new Point(100,200), 6, 100 * Math.random() + 20);
+		// animatedShape.fillColor = "purple"
+
+		function onFrame(event){
+			for(var i = 0; i < circles.length; i++)
+			{
+				// circles[i].fillColor = "green"
+
+				circles[i].fillColor.hue += 5;
+				circles[i].scale(.950)
+				circles[i].rotate(5)
+			}
+		}
     </script>
 </head>
 <body>
